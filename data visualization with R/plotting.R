@@ -238,7 +238,7 @@ plot1+plot2+plot3+plot4+plot_layout(guides = "collect", design = layout)
 
 library(pheatmap)
 
-expression_data<-read.table("r-sample-data.2020.txt", header = T, sep = "\t")
+expression_data<-read.table("r-sample-data.txt", header = T, sep = "\t")
 head(expression_data)
 expression_matrix<-as.matrix(expression_data[, -c(1,2)])
 # add rownames
