@@ -11,3 +11,5 @@ To prepare for these tutorials/vignettes:
 + Have the RStudio software pre-installed from [https://www.rstudio.com/products/rstudio/download](https://www.rstudio.com/products/rstudio/download)
 + Install packages ggplot2, dplyr, patchwork, pheatmap and viridis (optional) using the command `install.packages(c("ggplot2", "patchwork", "pheatmap", "dplyr", "pheatmap"))`
 + Create a folder in your computer and download the `r-sample-data.txt` to that location. 
+
+There is a guided tutorial in R_Data_Visualization.md

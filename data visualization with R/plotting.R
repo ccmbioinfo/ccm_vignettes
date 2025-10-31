@@ -47,6 +47,7 @@ ggplot(data=diamonds, aes(x=clarity, y=price, fill=cut))+geom_boxplot()
 # violin
 ggplot(data=diamonds, aes(x=clarity, y=price))+geom_violin()
 ggplot(data=diamonds, aes(x=clarity, y=price, fill=cut))+geom_violin()
+ggplot(data=diamonds, aes(x=clarity, y=price, fill=cut))+geom_violin()+ylim(0, 7500)
 
 #histogram
 ggplot(data=diamonds, aes(x=price))+geom_histogram()
@@ -56,7 +57,7 @@ diamonds_count<-diamonds %>%
   group_by(cut)%>%
   count()
 
-diamonds_count
+
 ggplot(data=diamonds_count, aes(x=cut, y=n))+geom_bar(stat="identity")
 
 diamonds_count2<-diamonds %>%
@@ -74,12 +75,12 @@ data(mtcars)
 head(mtcars)
 summary(mtcars)
 
-ggplot(data=mtcars, aes(x=mpg, y=hp, label=cyl))+geom_text()
+ggplot(data=mtcars, aes(x=mpg, y=hp, label=rownames(mtcars)))+geom_text()
 
 # density
 ggplot(diamonds, aes(x=price))+geom_density()
 ggplot(diamonds, aes(x=price, color=cut))+geom_density()
-ggplot(diamonds, aes(x=price, fill=cut))+geom_density()
+a=ggplot(diamonds, aes(x=price, fill=cut))+geom_density()
 ggplot(diamonds, aes(x=price, fill=cut))+geom_density(alpha=0.2)
 
 
@@ -149,7 +150,7 @@ ggplot(diamonds, aes(x=clarity, y=carat, color=price))+geom_jitter()+
 library(viridis)
 
 ggplot(diamonds, aes(x=clarity, y=carat, color=price))+geom_jitter()+
-  scale_color_viridis_c()
+  scale_color_viridis_c(option="G")
 
 
 #themes
@@ -175,33 +176,33 @@ ggplot(diamonds, aes(x=clarity, y=price, fill=cut))+geom_boxplot()+ggtitle("Awes
 ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
   ylim(10000, 15000)
 
-ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
+a=ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
   geom_hline(yintercept = c(5000, 10000), color="red", linetype="dashed")
 
-ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
+b=ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
   geom_hline(yintercept = c(5000, 10000), color="red", linetype="dashed")+
   geom_vline(xintercept = c(1,2), color="blue", linetype="dotdash")
 
-ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
+c=ggplot(diamonds, aes(x=carat, y=price))+geom_point()+
   geom_rect(xmin=1, xmax=2, ymin=5000, ymax=10000, alpha=0.05, color="goldenrod", fill="goldenrod")
 
 
 # add a specific line to the plot
-ggplot(diamonds, aes(x=carat, y=price))+geom_point()+geom_abline(slope = 400, intercept = 0)
+d=ggplot(diamonds, aes(x=carat, y=price))+geom_point()+geom_abline(slope = 400, intercept = 0)
 
 # add a regression lines to the plot
-ggplot(diamonds, aes(x=carat, y=price))+geom_point()+geom_smooth(method="lm")
-ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+geom_smooth(method="lm")
+e=ggplot(diamonds, aes(x=carat, y=price))+geom_point()+geom_smooth(method="lm")
+f=ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+geom_smooth(method="lm")
 
 
 #facets
 
 ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_wrap(.~cut)
-ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_wrap(.~cut, ncol=5)
+ggplot(diamonds, aes(x=carat, y=price, color=cut))+geom_point()+facet_wrap(.~clarity, ncol=5)
 ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_wrap(.~cut, nrow=1)
 
 ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_wrap(clarity~cut)
-ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_grid(clarity~cut)
+ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+facet_grid(color~cut)
 
 
 # see #https://patchwork.data-imaginist.com/index.html for more info on patchwork
