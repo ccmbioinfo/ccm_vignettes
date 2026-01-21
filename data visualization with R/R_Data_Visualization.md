@@ -1,14 +1,14 @@
 # R Data Visualization with ggplot and other packages
 
-These are the data visualization notes based on CCM Tutorials, we will be focusing on ggplo2 R package as this is a very
+These are the data visualization notes based on CCM Tutorials, we will be focusing on ggplot2 R package as this is a very
 versatile package with a lot options and easy to use syntax. For setting up R and Rstudio please see the main README file
 
-The plotting.R file also explores not only everything in this file but also has additional examples. 
+The plotting.R file contains all of these examples and additional examples not covered here.
 
 
 ## Install dependencies
 
-These are the package we will be using. They are availbale throug CRAN.
+These are the package we will be using. They are availbale through CRAN.
 
 ```R
 install.packages(c("ggplot2", "pheatmap", "dplyr", "patchwork", "viridis"))
@@ -17,7 +17,7 @@ install.packages(c("ggplot2", "pheatmap", "dplyr", "patchwork", "viridis"))
 If you want to use BiocManager you will need to install it first. 
 
 ```R
-install.packages("BiocManages")
+install.packages("BiocManager")
 
 BiocManager::install(c("ggplot2", "pheatmap", "dplyr", "patchwork", "viridis"))
 ```
@@ -32,7 +32,7 @@ library(dplyr)
 ```
 
 For most of our visualizations we will be using the diamonds dataset. This is a built in dataset that comes with R and you can 
-easiyl load it. Later we will load our own tsv file and perform some viusalizations as well. 
+easily load it. Later we will load our own tsv file and perform some visualizations as well. 
 
 ```R
 data(diamonds)
@@ -53,7 +53,7 @@ head(diamonds)
 
 ## Plotting
 
-ggplot objects can be used in 2 similar ways. You can initiate a ggplot object and keep adding (`+`) things to id
+ggplot objects can be used in 2 similar ways. You can initiate a ggplot object and keep adding (`+`) things to it
 or you can start declaring your variables and then specify plots. There are uses for both and we will cover them. 
 
 ```R
@@ -81,7 +81,7 @@ ggplot(data=diamonds, aes(x=carat, y=price))
 ![img_2.png](plots/img_2.png)
 
 Ok, we can see the range our data takes but we still did not describe what kind of plot we want. Let's add that. For a quick
-introduction to what kinds of plots you can plot see the data-visualization.pdf file. 
+introduction to what kinds of plots you can plot, see the data-visualization.pdf file. 
 
 ```R
 ggplot(data=diamonds, aes(x=carat, y=price))+geom_point()
@@ -113,13 +113,13 @@ We can also change the shape of the dots based on a factor using shape argument.
 ggplot()+geom_point(data=diamonds, aes(x=carat, y=price, color=clarity, shape=cut))
 ```
 
-There is one gotcha, for the shape or lineytpe (see below) you cannot use continuous variables, they will have to have 
-discrete values. For color there are color palettes that suppor continous and some that support discreete. For the latter
+There is one gotcha, for the shape or linetype (see below) you cannot use continuous variables, they will have to have 
+discrete values. For color there are color palettes that support continuous and some that support discrete. For the latter
 make sure that you have enough different colors. If you have 5 levels your palette should have at least 5 colors. 
 
 ## Other types of plots: 
 
-We will quickly go over some of the most common ones. For illustration purposes I will also be adding some color or or shape
+We will quickly go over some of the most common ones. For illustration purposes I will also be adding some color or shape
 features along the way to show you some of the parameter w/o being exhausting and exhaustive. 
 
 **Boxplot**
@@ -138,7 +138,7 @@ ggplot(data=diamonds, aes(x=clarity, y=price, fill=cut))+geom_violin()
 
 ![img_6.png](plots/img_6.png)
 
-Off, this looks terrible, we can play with the axes a little bit, Seems like there are a lot of outliers, how about
+Oof, this looks terrible, we can play with the axes a little bit. Seems like there are a lot of outliers, how about
 we do not plot anything above 7500 (I can't afford them anyway). 
 
 ```R
@@ -147,7 +147,7 @@ ggplot(data=diamonds, aes(x=clarity, y=price, fill=cut))+geom_violin()+ylim(0, 7
 ```
 ![img_7.png](plots/img_7.png)
 
-** Bar graphs ** 
+**Bar graphs** 
 
 While some plots have the actual numbers on the graph others want to give you the numbers of things in each category. 
 You can create a new dataframe that captures these numbers and plot them (and sometimes you have to because you have a complex
@@ -174,7 +174,7 @@ ggplot(data=diamonds_count, aes(x=cut, y=n))+geom_bar(stat="identity")
 
 You can add different things to your barplot, here stat and position comes into play. 
 
-Let's cound the number of diamonds but cut *and* clarity. 
+Let's count the number of diamonds by cut *and* clarity. 
 
 
 ```R
@@ -229,7 +229,7 @@ Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
 Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
 ```
 
-What if I want to know which car which property, and I want to labels on the plot. 
+What if I want to know which car company, and I want to label them on the plot. 
 
 ```R
 ggplot(data=mtcars, aes(x=mpg, y=hp, label=rownames(mtcars)))+geom_text()
@@ -238,7 +238,7 @@ ggplot(data=mtcars, aes(x=mpg, y=hp, label=rownames(mtcars)))+geom_text()
 
 ![img_11.png](plots/img_11.png)
 
-If you have a lot of labels things can get pretty messy really quickly. 
+If you have a lot of labels, things can get pretty messy really quickly. 
 
 **Density Plots**
 
@@ -250,18 +250,18 @@ ggplot(diamonds, aes(x=price, color=cut))+geom_density()
 
 ![img_12.png](plots/img_12.png)
 
-When you have a lot of large object in the plot maybe you want to introduce some transparency. Compare the two plots below
+When you have a lot of large objects in the plot maybe you want to introduce some transparency. Compare the two plots below
 
 ```R
 ggplot(diamonds, aes(x=price, fill=cut))+geom_density()
 ggplot(diamonds, aes(x=price, fill=cut))+geom_density(alpha=0.2)
 ```
-alpha defines transparency. 0 fully tranparent 1 no transparancy. 
+alpha defines transparency. 0 fully transparent, 1 no transparancy. 
 
 ![img_13.png](plots/img_13.png)
 
 Don't worry about how I put the two plots side by side we will get to that later. BTW there is nothing stopping you 
-from plotting 2 continous densities. 
+from plotting 2 continuous densities. 
 
 ```R
 ggplot(data=diamonds, aes(x=depth, y=table, color=cut))+geom_density2d()
@@ -280,7 +280,7 @@ ggplot(diamonds, aes(x=clarity, y=price))+geom_boxplot()+geom_point(alpha=0.05)
 
 ![img_15.png](plots/img_15.png)
 
-That was not what I have in ming. All my points are just on top of each other. I would like to spread them a little bit to 
+That was not what I have in mind. All my points are just on top of each other. I would like to spread them a little bit to 
 cover the width of the boxplot. 
 
 ```R
@@ -339,7 +339,7 @@ ggplot(diamonds, aes(x=clarity, y=price, fill=cut))+geom_boxplot()+ggtitle("Awes
 
 ![img_20.png](plots/img_20.png)
 
-Same idea with continous variables, but this time you only define 2 (or 3 ) colors and R takes care of the rest. 
+Same idea with continuous variables, but this time you only define 2 (or 3) colors and R takes care of the rest. 
 
 ```R
 ggplot(diamonds, aes(x=clarity, y=carat, color=price))+geom_jitter()+
@@ -354,11 +354,11 @@ start with scale_[kind that you are specifiny color to]_[type_of_change].
 So `scale_color_gradient`, modifies color with a gradient of 2 colors (gradient2 takes a midpoint). `scale_fill_manual`
 changes the fill attribute with manual colors. 
 
-## Are my eyes decieving me?
+## Are my eyes deceiving me?
 
 Yes, not all color palettes are created equal, in some instances our eyes are biased towards different colors (like greens 
 usually appear brighter than red for equal values of luminosity). Some do not convey a linear gradient of change, or are not
-colorbling friendly or look terrible when printed in black and white. The virids color palettes are desinged to alleviate
+colorblind friendly or look terrible when printed in black and white. The virids color palettes are designed to alleviate
 (not completely solve) some of these problems. See [here](ttps://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html)
 for more information. 
 
@@ -415,7 +415,7 @@ ggplot(diamonds, aes(x=carat, y=price, color=clarity))+geom_point()+geom_smooth(
 ### Facets
 
 Sometimes, you want to plot the same kind of plot but separate your data to individual pieces, you can do this manually
-if it's really a complicated splitting, but if you just want to plot a new plot per **discreet** values of a column ggplot 
+if it's really a complicated splitting, but if you just want to plot a new plot per **discrete** value of a column, ggplot 
 can do that for you out of the box. 
 
 `facet_wrap` as the name suggest just plots a new plot and puts them side by side, you can determine how many columns (or row)
@@ -451,7 +451,7 @@ plot1+plot2 #side by side
 
 ![img_28.png](plots/img_28.png)
 
-You can generate each plot separately to your liking and then compbine them as you see fit. See plotting.R for more examples. 
+You can generate each plot separately to your liking and then combine them as you see fit. See plotting.R for more examples. 
 
 
 ## Heatmaps
@@ -480,7 +480,7 @@ cg05374025 0.36911690 0.61183080 0.45144100 0.35334690
 
 ![img_29.png](plots/img_29.png)
 
-That wasn't too bad. See plotting R for how to changes colors and other features. This is not good enough though. We want to 
+That wasn't too bad. See plotting.R for how to changee colors and other features. This is not good enough though. We want to 
 add some annotations.
 
 ```R
@@ -516,4 +516,4 @@ pheatmap(expression_matrix, fontsize_row = 8, fontsize_col = 8, show_rownames = 
 
 Much better. 
 
-That's all folks, See plotting.R for how more details and how to generate plots programmaticall and save them to a pdf. 
+That's all folks, See plotting.R for more details and how to generate plots programmatically and save them to a pdf. 
